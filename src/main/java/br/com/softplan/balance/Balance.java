@@ -17,7 +17,8 @@ import java.math.BigInteger;
 public class Balance {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
+    @SequenceGenerator(name = "transaction_seq", sequenceName = "transaction_seq")
     Long id;
 
     @Column(name = "customer_id")

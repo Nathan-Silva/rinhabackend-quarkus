@@ -18,7 +18,8 @@ import java.time.LocalDateTime;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balance_seq")
+    @SequenceGenerator(name = "balance_seq", sequenceName = "balance_seq")
     Long id;
 
     @Column(name = "customer_id")
