@@ -20,3 +20,10 @@ INSERT INTO balance (id, customer_id, total, limite)
                (3, 3, 0, 10000 * 100),
                (4, 4, 0, 100000 * 100),
                (5, 5, 0, 5000 * 100);
+
+CREATE SEQUENCE transaction_seq START 1 INCREMENT 1;
+ALTER TABLE "transaction" ALTER COLUMN id SET DEFAULT nextval('transaction_seq');
+
+CREATE SEQUENCE balance_seq START 6 INCREMENT 1;
+ALTER TABLE balance ALTER COLUMN id SET DEFAULT nextval('balance_seq');
+
