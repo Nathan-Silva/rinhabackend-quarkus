@@ -10,8 +10,11 @@ import br.com.softplan.utils.CustomerValidationsUtils;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.logging.Logger;
+@Slf4j
 @ApplicationScoped
 public class TransactionService {
 
@@ -26,6 +29,7 @@ public class TransactionService {
 
     @Transactional
     public TransactionResponse createTransaction(Long id, TransactionRequest transactionRequest) {
+        log.info("Create Transaction Request Processing: {}", transactionRequest);
         customerValidationsUtils.validateCustomer(id);
         validateRequest(transactionRequest);
 

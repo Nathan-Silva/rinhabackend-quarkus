@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity
 @Data
+@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,8 +18,7 @@ import java.time.LocalDateTime;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balance_seq")
-    @SequenceGenerator(name = "balance_seq", sequenceName = "balance_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(name = "customer_id")

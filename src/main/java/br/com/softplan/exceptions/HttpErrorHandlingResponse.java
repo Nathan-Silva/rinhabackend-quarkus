@@ -9,6 +9,7 @@ public class HttpErrorHandlingResponse implements ExceptionMapper<Exception> {
 
     @Override
     public Response toResponse(Exception e) {
+        e.printStackTrace();
 
         if (e instanceof CustomerNotFoundException) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();

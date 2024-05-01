@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
 
-@Entity
 @Data
+@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +17,7 @@ import java.math.BigInteger;
 public class Balance {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
-    @SequenceGenerator(name = "transaction_seq", sequenceName = "transaction_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(name = "customer_id")

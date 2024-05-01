@@ -23,6 +23,7 @@ public class CustomerResource {
 
     @POST
     @Path("{id}/transacoes")
+
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createTransaction(@PathParam("id") Long id, @Valid @RequestBody TransactionRequest transactionRequest) {
         return Response.status(Response.Status.OK).entity(transactionService.createTransaction(id, transactionRequest)).build();

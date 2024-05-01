@@ -32,12 +32,12 @@ const Transacoes: React.FC = () => {
 
     try {
       // Fazer a chamada POST para o endpoint /clientes/[id]/transacoes
-      const response = await axios.post(`http://localhost:9999/clientes/${idCliente}/transacoes`, transacaoData);
+      const response = await axios.post(`http://localhost:8080/clientes/${idCliente}/transacoes`, transacaoData);
 
       // Verificar se a resposta foi bem-sucedida
       if (response.status === 200) {
         localStorage.setItem('userId', idCliente);
-        
+
       } else {
         console.error('Erro ao fazer a transação:', response.statusText);
       }

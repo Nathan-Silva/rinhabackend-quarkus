@@ -9,10 +9,12 @@ import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+@Slf4j
 @ApplicationScoped
 public class BalanceService {
 
@@ -27,6 +29,7 @@ public class BalanceService {
 
 
     public ExtractResponse getExtract(Long customerId) {
+        log.info("Get Extract Request Processing for ID: {}", customerId);
         customerValidationsUtils.validateCustomer(customerId);
 
         var balance = balanceRepository.findByCustomerId(customerId);

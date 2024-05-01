@@ -28,7 +28,7 @@ const Extrato: React.FC = () => {
 
     if (userId) {
       // Fazer a chamada GET para o endpoint /clientes/[id]/extrato com o ID do usuário
-      axios.get(`http://localhost:9999/clientes/${userId}/extrato`)
+      axios.get(`http://localhost:8080/clientes/${userId}/extrato`)
         .then((response) => {
           // Definir o saldo
           setSaldo(response.data.saldo);
