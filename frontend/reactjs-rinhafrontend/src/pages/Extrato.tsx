@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Typography, Box, Card, CardContent } from '@mui/material';
+import { format } from 'date-fns';
 import axios from 'axios';
 
 interface ExtratoItem {
   id: string;
   descricao: string;
   valor: number;
-  data: string;
+  realizada_em: string;
+  tipo: string;
 }
 
 interface Saldo {
@@ -30,6 +33,7 @@ const Extrato: React.FC = () => {
       // Fazer a chamada GET para o endpoint /clientes/[id]/extrato com o ID do usuário
       axios.get(`http://localhost:8080/clientes/${userId}/extrato`)
         .then((response) => {
+          console.log(response)
           // Definir o saldo
           setSaldo(response.data.saldo);
           // Definir as últimas transações
@@ -45,25 +49,29 @@ const Extrato: React.FC = () => {
 
   return (
     <div>
-      <h2>Extrato</h2>
-      <div>
-        <h3>Saldo</h3>
-        <p>Total: R${saldo.total.toFixed(2)}</p>
-        <p>Data de Extração: {new Date(saldo.data_extracao).toLocaleString()}</p>
-        <p>Limite: R${saldo.limite.toFixed(2)}</p>
-      </div>
-      <div>
-        <h3>Últimas Transações</h3>
-        <ul>
-          {ultimasTransacoes.map((transacao, index) => (
-            <li key={index}>
-              <p>Descrição: {transacao.descricao}</p>
-              <p>Valor: R${transacao.valor.toFixed(2)}</p>
-              <p>Data: {new Date(transacao.data).toLocaleString()}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Box sx={{ margin: '16px' }} >
+        <Typography variant="h3" gutterBottom>Saldo</Typography>
+        <Typography>Total: R${saldo.total.toFixed(2)}</Typography>
+        <Typography>Data de Extração: {new Date(saldo.data_extracao).toLocaleString()}</Typography>
+        <Typography>Limite: R${saldo.limite.toFixed(2)}</Typography>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        >
+        <Typography variant="h6" gutterBottom>Últimas Transações</Typography>
+        {ultimasTransacoes.map((transacao, index) => (
+          <Card key={index} variant="outlined" sx={{ marginBottom: '16px' }}>
+            <CardContent>
+              <Typography variant="subtitle1">Descrição: {transacao.descricao}</Typography>
+              <Typography variant="body2">Valor: R${transacao.valor.toFixed(2)} | Data: {transacao.realizada_em ? format(new Date(transacao.realizada_em.replace(' ', 'T')), 'dd/MM/yyyy HH:mm:ss') : 'Data indisponível'}</Typography>
+              <Typography variant="subtitle1">Tipo da Transacao: {transacao.tipo === 'r' ? 'Recebíveis' : 'Débito'}</Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
     </div>
   );
 };

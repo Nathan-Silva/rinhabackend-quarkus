@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button, CssBaseline, ThemeProvider, TextField, MenuItem, Box } from '@mui/material';
+import theme from '../theme';
 import axios from 'axios';
 
 const Transacoes: React.FC = () => {
@@ -15,13 +17,24 @@ const Transacoes: React.FC = () => {
     setValor(Number(event.target.value));
   };
 
-  const handleTipoChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTipoChange = (event: React.ChangeEvent<any>) => {
     setTipo(event.target.value);
   };
 
   const handleDescricaoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDescricao(event.target.value);
   };
+
+  const transactionTye = [
+    {
+      value: 'D',
+      label: 'Débito'
+    },
+    {
+      value: 'R',
+      label: 'Recebíveis'
+    }
+  ];
 
   const handleSubmit = async () => {
     const transacaoData = {
@@ -47,30 +60,39 @@ const Transacoes: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Realizar Transação</h2>
-      <div>
-        <label htmlFor="idCliente">ID do Cliente:</label>
-        <input type="text" id="idCliente" value={idCliente} onChange={handleIdClienteChange} />
-      </div>
-      <div>
-        <label htmlFor="valor">Valor:</label>
-        <input type="number" id="valor" value={valor} onChange={handleValorChange} />
-      </div>
-      <div>
-        <label htmlFor="tipo">Tipo:</label>
-        <select id="tipo" value={tipo} onChange={handleTipoChange}>
-          <option value="D">Débito</option>
-          <option value="R">Recebíveis</option>
-          {/* Adicione outras opções conforme necessário */}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="descricao">Descrição:</label>
-        <input type="text" id="descricao" value={descricao} onChange={handleDescricaoChange} />
-      </div>
-      <button onClick={handleSubmit}>Realizar Transação</button>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        height="100vh"
+      >
+        <Box width="300px">
+        <TextField id="outlined-basic" label="Id do cliente" variant="outlined" value={idCliente} onChange={handleIdClienteChange} fullWidth sx={{ marginBottom: '16px' }} />
+        <TextField id="outlined-basic" label="Valor que deseja enviar" variant="outlined" value={valor} onChange={handleValorChange} fullWidth sx={{ marginBottom: '16px' }} />
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Tipo de transacao"
+          defaultValue="Débito"
+          value={tipo}
+          sx={{ marginBottom: '16px' }}
+          onChange={handleTipoChange}
+          fullWidth
+        >
+          {transactionTye.map((option) => (
+            <MenuItem key={option.value} value={option.value} >
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField id="outlined-basic" label="Deixe sua mensagem:" variant="outlined" value={descricao} onChange={handleDescricaoChange} sx={{ marginBottom: '16px' }} fullWidth />
+        <Button variant="contained" size="large" fullWidth onClick={handleSubmit}>Enviar Transacao</Button>
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 };
 
