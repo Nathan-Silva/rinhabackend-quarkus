@@ -1,62 +1,32 @@
-# Rinha Backend Q1 2024
+# Projeto Rinha Backend 2024
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Este projeto é uma versão espelhada do primeiro desafio da Rinha de Backend de 2024. Ele consiste em uma aplicação web com um frontend e um backend, onde o frontend é construído com React e Material UI e o backend com Java 21 e Quarkus.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+## Build
 
-## Running the application in dev mode
+Para compilar o projeto, siga os passos abaixo:
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
-```
+1. **Build do Projeto Backend:**
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+   Execute o seguinte comando na raiz do projeto para compilar o backend:
 
-## Packaging and running the application
+   ```bash
+   mvn clean package
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+2. **Gerar a Imagem Docker do Backend:**
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+   ```bash
+   docker buildx build --platform linux/amd64 -f src/main/docker/Dockerfile.jvm -t braganathan38/rinhabackend-softplan:1.0 .
 
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
+3. **Gerar a Imagem Docker do Frontend**
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+   ```bash
+   docker buildx build -f ./Dockerfile -t braganathan38/rinhafrontend-softplan:1.0 .
 
-## Creating a native executable
+4. **Executar os Serviços do Docker:**
 
-You can create a native executable using: 
-```shell script
-./mvnw package -Dnative
-```
+   ```bash
+   docker compose up -d
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
 
-You can then execute your native executable with: `./target/rinhabackend-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- Flyway ([guide](https://quarkus.io/guides/flyway)): Handle your database schema migrations
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+**O Frontend estará disponível na porta 3000 e, o backend na porta 9999**
