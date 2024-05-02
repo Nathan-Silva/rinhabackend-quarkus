@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  frontend:
+    image: braganathan38/rinhafrontend-softplan:1.0
+    hostname: front01
+    networks:
+      - default
+    ports:
+      - "3000:3000"
+
   api01: &api
     image: braganathan38/rinhabackend-softplan:1.0
     hostname: api01
