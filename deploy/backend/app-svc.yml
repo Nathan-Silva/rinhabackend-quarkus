@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rinha-backend-svc
+spec:
+  selector:
+    app: rinha-backend
+  ports:
+  - port: 8080
+  type: NodePort

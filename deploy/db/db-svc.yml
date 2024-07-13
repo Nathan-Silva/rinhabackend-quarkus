@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-rinha-svc
+  labels:
+    app: db-rinha-svc
+spec:
+  selector:
+    app: db-rinha-backend
+  ports:
+  - port: 5432
+  clusterIP: None

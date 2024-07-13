@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-rinha-deployment
+  labels:
+    app: db-rinha-backend
+spec:
+  selector:
+    matchLabels:
+      app: db-rinha-backend
+  template:
+    metadata:
+      name: db-rinha-backend
+      labels:
+        app: db-rinha-backend
+    spec:
+      containers:
+      - name: db-rinha-backend
+        image: postgres:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_DB
+            value: postgres
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            value: "1234"
+---
